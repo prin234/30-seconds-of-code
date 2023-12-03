@@ -1,0 +1,19 @@
+@use 'sass:map';
+
+// Currently almost no popular device is around this size.
+// This can be used for mobile-specific adjustments.
+$mobile-upper-bound: 550px;
+
+// Ideal width of the main column (content) in pixels.
+// Note that this doesn't contain the scrollbar width.
+$main-column-width: 800px;
+
+// Width of the scrollbar in pixels.
+// Note that this is only applied on desktop devices.
+$scrollbar-width: 12px;
+
+// Maximum viewport width without horizontal spacing.
+// Equals to the main column width + scrollbar width + 2 * spacing.
+// The spacing assumes that full-width bleeds equal s-6.
+$spaced-main-column-width: $main-column-width + $scrollbar-width + 2 *
+  map.get($spacing, '6');

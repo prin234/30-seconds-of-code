@@ -1,0 +1,26 @@
+// Animation and transition durations (anm-d-)
+$animation-durations: (
+  sh: 200ms,
+  md: 300ms,
+  ln: 450ms,
+);
+$V_animation-durations: vmap($animation-durations, 'anm-d');
+
+$animation-durations-reduced: map-duplicate-with-value(
+  $animation-durations,
+  0ms
+);
+$V_animation-durations-reduced: vmap($animation-durations-reduced, 'anm-d');
+
+:root {
+  @include vmap-to-variables($V_animation-durations);
+
+  // If the user prefers reduced motion, all animation duration variables
+  // will be set to `0ms`, effectively rendering all of the transitions that
+  // use them inert.
+  // TODO: Check how animations will work with these values
+  // if/when we add animations. (MDN explains)
+  @media (prefers-reduced-motion: reduce) {
+    @include vmap-to-variables($V_animation-durations-reduced);
+  }
+}

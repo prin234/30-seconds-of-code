@@ -1,0 +1,35 @@
+---
+import Icon from '#components/Icon';
+
+const { paginator } = Astro.props;
+
+if (!paginator) return null;
+
+const { previous, pages, next } = paginator;
+---
+<!-- TODO: Make the icons rem-based relative to the font size -->
+<nav aria-label='Pagination'>
+  {previous ? (
+    <a href={previous.url} rel='prev' aria-label={previous.label}>
+      <Icon name='chevron-left' size={24} />
+      <span>{previous.label}</span>
+    </a>
+  ) : (
+    <div />
+  )}
+  <section>
+    {pages.map(({ label, url, current }) =>(
+      <a href={url} aria-current={current ? 'page' : null}>
+        {label}
+      </a>
+    ))}
+  </section>
+  {next ? (
+    <a href={next.url} rel='next' aria-label={next.label}>
+      <span>{next.label}</span>
+      <Icon name='chevron-right' size={24} />
+    </a>
+  ) : (
+    <div />
+  )}
+</nav>

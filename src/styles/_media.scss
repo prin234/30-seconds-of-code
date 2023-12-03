@@ -1,0 +1,24 @@
+// NOTE: iframe, embed, audio, object can be added to this later
+img,
+picture,
+video,
+canvas,
+svg {
+  // Make media responsive by default.
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+// TODO: Mobile me to remove radius or something
+// TODO: Potentially make this the default for `img` elements only inside the
+// main > article hierarchy and remove the class.
+.ar-wide {
+  width: 100%;
+  aspect-ratio: 2;
+  object-fit: cover;
+  // TODO: Maybe update all of these to 1 / -1
+  grid-column: 1 / 4;
+  // TODO: Update the radius when updating across
+  border-radius: var(--br-md);
+}

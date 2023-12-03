@@ -1,0 +1,20 @@
+// Skip to content link
+.skip-link {
+  clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+  box-sizing: border-box;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  transition: none;
+
+  // The link must have the same height and background as the nav bar
+  &:focus {
+    clip-path: none;
+    background: var(--clr-navbar-bg);
+    height: 112px;
+    z-index: 1001;
+  }
+}

@@ -1,0 +1,21 @@
+// Border radius definitions (br-)
+$border-radii: (
+  none: 0,
+  sm: 0.125rem,
+  md: 0.25rem,
+  lg: 0.5rem,
+  xl: 1rem,
+  round: 1000rem,
+);
+$V_border-radii: vmap($border-radii, 'br');
+
+// Border width definitions (bw-)
+$border-widths: (
+  normal: '1px',
+);
+$V_border-widths: vmap($border-widths, 'bw');
+
+:root {
+  @include vmap-to-variables($V_border-radii);
+  @include vmap-to-variables($V_border-widths);
+}

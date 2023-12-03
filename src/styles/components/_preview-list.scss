@@ -1,0 +1,66 @@
+.preview-list {
+  display: grid;
+  grid-template-columns: var(--lt-bl-w) 1fr var(--lt-bl-w);
+
+  // TODO: Temp
+  margin-block-start: var(--s-8);
+
+  ul {
+    grid-column: 2;
+    list-style: none;
+    padding-inline-start: 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--s-8);
+  }
+
+  li {
+    display: flex;
+    column-gap: var(--s-6);
+    align-items: center;
+
+    // TODO: Figure these out
+    // grid-template-columns: 144px auto;
+    // content-visibility: auto;
+    // contain-intrinsic-size: 192px;
+
+    // TODO: We have no hover styles yet!
+
+    img {
+      // TODO: This guy stretches on mobile, ouch!
+      border-radius: var(--br-md);
+    }
+
+    a {
+      // Remove underline from chip links.
+      --clr-lnk-ul: transparent;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+      }
+    }
+
+    h3 {
+      // TODO: Evaluate
+      font-weight: 500;
+    }
+
+    article {
+      display: flex;
+      flex-direction: column;
+      row-gap: var(--s-2);
+
+      position: relative;
+    }
+  }
+
+  @media (max-width: 60ch) {
+    li {
+      img {
+        display: none;
+      }
+    }
+  }
+}

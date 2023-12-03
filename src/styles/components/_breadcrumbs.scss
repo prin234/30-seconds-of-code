@@ -1,19 +1,51 @@
-.breadcrumb-item {
-  &:not(:first-of-type) {
-    &:before {
-      color: var(--clr-txt-050);
-      content: '/';
-      padding: 0 0.25rem;
+nav[aria-label='Breadcrumb'] {
+  display: grid;
+  grid-template-columns: var(--lt-bl-w) 1fr var(--lt-bl-w);
+  --column-gap: var(--s-1);
+
+  ol {
+    // Place the content in the middle column (no bleed)
+    grid-column: 2;
+    padding-inline-start: 0;
+    display: flex;
+    color: var(--clr-txt-100);
+    column-gap: var(--column-gap);
+    font-size: var(--fs-sm);
+    padding-block-end: var(--s-4);
+    // If all else fails, wrap the breadcrumbs.
+    flex-wrap: wrap;
+  }
+
+  li {
+    display: flex;
+    column-gap: var(--column-gap);
+
+    // Hide the current page breadcrumb, but keep it accessible.
+    &:has([aria-current='page']) {
+      @include visually-hidden;
+    }
+
+    // Query depending on how many characters can fit in a line, assuming that
+    // the user may change the default font size.
+    @media (max-width: 45ch) {
+      &:first-child {
+        // Visually hide the first breadcrumb (Home) on smaller viewports.
+        @include visually-hidden;
+      }
     }
   }
 
-  // Current page
-  &:last-of-type {
-    flex: 1;
-    white-space: nowrap;
+  a {
+    // Remove underlines from links.
+    --clr-lnk-ul: transparent;
+    // Apply a transition on hover.
+    transition: var(--anm-d-sh) ease-out color;
 
-    a {
-      pointer-events: none;
+    @media (hover: hover) {
+      &:is(:hover, :focus) {
+        // Only apply hover styles on devices that support hover.
+        color: var(--clr-txt-200);
+      }
     }
   }
 }

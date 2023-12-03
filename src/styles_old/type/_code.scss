@@ -1,0 +1,76 @@
+// Colors
+:root {
+  // Inline
+  // --clr-code-bg: hsl(225, 31%, 18%);
+  // --clr-code-border: hsl(225, 30%, 31%);
+  // --clr-code-txt: hsl(228, 74%, 91%);
+  // --clr-kbd-bg: hsl(236, 17%, 18%);
+  // --clr-kbd-txt: hsl(240, 13%, 87%);
+  // --clr-kbd-border: hsl(231, 9%, 42%);
+
+  // Block
+  --clr-code-block-txt: hsl(0, 69%, 67%);
+  --clr-code-selection: hsl(228, 89%, 15%);
+
+  // Scrollbars
+  --clr-code-scrollbar-bg: hsl(225, 28%, 13%);
+  --clr-code-scrollbar-knob: hsl(225, 22%, 21%);
+  --clr-code-scrollbar-knob-active: hsl(225, 20%, 25%);
+
+  --clr-tkn-a: hsl(199, 17%, 57%); // Comments
+  --clr-tkn-b: hsl(0, 0%, 74%); // Punctuation
+  --clr-tkn-c: hsl(207, 89%, 68%); // Functions
+  --clr-tkn-d: hsl(34, 100%, 50%); // Numbers
+  --clr-tkn-e: hsl(88, 50%, 76%); // Strings
+  --clr-tkn-f: hsl(291, 47%, 71%); // Keywords
+  --clr-tkn-g: hsl(187, 71%, 50%); // Regular expressions
+  --clr-tkn-h: hsl(0, 69%, 67%); // Variables
+}
+
+pre[class*='language-']::selection,
+pre[class*='language-'] ::selection {
+  background: var(--clr-code-selection);
+}
+
+:not(pre) > code[class*='language-'] {
+  padding: 0.125rem 0.25rem;
+  white-space: normal;
+}
+
+pre {
+  position: relative;
+  --clr-el-scrollbar-bg: var(--clr-code-scrollbar-bg);
+  --clr-el-scrollbar-knob: var(--clr-code-scrollbar-knob);
+  --clr-el-scrollbar-knob-active: var(--clr-code-scrollbar-knob-active);
+}
+
+pre[data-code-language]:not([data-code-language='']) {
+  padding-block-start: 2.625rem;
+
+  &::before {
+    font-family: 'Inter', Helvetica, sans-serif;
+    font-size: inherit;
+    color: var(--clr-txt-100);
+    position: absolute;
+    top: 0.8725rem;
+    left: 0.8725rem;
+    display: block;
+    content: attr(data-code-language);
+  }
+}
+
+p > code,
+a > code {
+  &,
+  &[class*='language-'] {
+    color: var(--clr-code-txt);
+    background: var(--clr-code-bg);
+  }
+}
+
+a > code {
+  &,
+  &[class*='language-'] {
+    color: var(--clr-primary-050);
+  }
+}

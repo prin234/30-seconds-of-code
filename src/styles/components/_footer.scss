@@ -1,0 +1,83 @@
+@use 'sass:map';
+
+footer {
+  grid-area: fc;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: var(--s-8);
+  justify-content: space-between;
+  align-items: last baseline;
+  padding-block: var(--s-8) calc(var(--s-8) + var(--s-2));
+
+  @media (max-width: #{$spaced-main-column-width}) {
+    // If the viewport isn't wide enough, add some horizontal padding.
+    padding-inline: var(--s-6);
+  }
+
+  p {
+    flex-basis: 30ch;
+    flex-grow: 1;
+    max-width: 40ch;
+  }
+
+  p,
+  ul {
+    font-size: var(--font-sm);
+  }
+
+  ul {
+    columns: var(--sitemap-column-count);
+    column-gap: var(--s-6);
+    list-style: none;
+    padding-inline-start: 0;
+  }
+
+  a {
+    // Remove underline from links.
+    --clr-lnk-ul: transparent;
+    // Set the hover color to the correct color.
+    --clr-lnk-hv: var(--clr-primary-100);
+    // Set the transition duration to the correct duration.
+    --anm-lnk-d: var(--anm-d-md);
+
+    // Apply a transition on hover.
+    transition: var(--anm-lnk-d) ease color;
+
+    @media (hover: hover) {
+      // Only apply hover styles on devices that support hover.
+      &:is(:hover, :focus) {
+        color: var(--clr-lnk-hv);
+      }
+    }
+  }
+
+  small {
+    flex-basis: 100%;
+    font-size: var(--font-mi);
+    color: var(--clr-txt-050);
+    text-align: center;
+
+    a {
+      --clr-lnk-hv: var(--clr-txt-200);
+      --anm-lnk-d: var(--anm-d-sh);
+    }
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--s-3);
+    justify-content: space-between;
+    // Define the column count of the sitemap list here, so that it can be
+    // overridden in the media query below.
+    --sitemap-column-count: 3;
+    flex-grow: 1;
+
+    @media (min-width: $mobile-upper-bound) {
+      --sitemap-column-count: 2;
+      flex-grow: 0;
+    }
+  }
+}

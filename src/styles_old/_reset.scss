@@ -1,0 +1,60 @@
+// Apply fixes and defaults as necessary for modern browsers only
+a,
+b,
+em,
+i,
+q,
+span,
+strong,
+u {
+  transition: 0.3s ease all;
+  font-size: 1em; // Fix for elements inside headings not displaying properly.
+}
+
+sup,
+sub,
+code,
+kbd {
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+blockquote {
+  box-shadow: inset 4px 0 0 0 var(--clr-quote-border);
+}
+// Style tabular content
+.table-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+
+  &.primary-col {
+    tr > td:first-child {
+      font-weight: 600;
+      -webkit-font-smoothing: antialiased;
+      text-align: right;
+      padding: 0.5rem 1rem 0.5rem 0.5rem;
+    }
+  }
+
+  th {
+    font-weight: 600;
+    -webkit-font-smoothing: antialiased;
+    font-size: var(--font-md);
+  }
+
+  td,
+  th {
+    text-align: center;
+    border: 1px solid var(--clr-table-border);
+    padding: 0.5rem;
+  }
+}
+// Use pointer cursor for label
+label {
+  cursor: pointer;
+}

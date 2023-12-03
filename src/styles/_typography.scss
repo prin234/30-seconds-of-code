@@ -1,0 +1,183 @@
+html {
+  // Setup Inter as the default font.
+  font-family: 'Inter', Helvetica, sans-serif;
+}
+
+body {
+  // Set a default line height.
+  line-height: var(--lh-loose);
+}
+
+// TODO: Maybe add this also as `.f-strong`
+strong {
+  // Make strong text semi-bold.
+  font-weight: 600;
+}
+
+// TODO: Maybe also add this as `.f-italic`
+em {
+  // Make emphasized text italic.
+  font-variation-settings: 'slnt' -10;
+  font-style: normal;
+}
+
+a,
+em,
+strong,
+span {
+  // TODO: Check if this is needed and if it can be tidied up
+  // transition: 0.3s ease all;
+  // TODO: Can we avoid this using a better approach?
+  // font-size: 1em;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  // Make headings semi-bold.
+  font-weight: 600;
+  // Break long words if they would overflow.
+  overflow-wrap: break-word;
+  hyphens: auto;
+  // TODO: Evaluate this, it doesn't make a ton of sense in many cases.
+  // Apply a better text balancing algorithm, when supported.
+  text-wrap: balance;
+}
+
+// TODO: These look good in practice, uncertain how to proceed as we move along.
+h2,
+h3,
+h4 {
+  margin-block-start: calc(1.5 * var(--row-gap));
+  margin-block-end: calc(0.5 * var(--row-gap));
+}
+
+h1,
+h2,
+h3 {
+  // Reduce line-height for headings.
+  line-height: var(--lh-tight);
+}
+
+h4,
+h5,
+h6 {
+  // Reduce line-height for headings.
+  line-height: var(--lh-normal);
+}
+
+h1 {
+  font-size: clamp(var(--font-x2), 3vw + 1rem, var(--font-x3));
+}
+
+h2 {
+  font-size: clamp(var(--font-xl), 2vw + 1rem, var(--font-x2));
+}
+
+h3 {
+  font-size: clamp(var(--font-lg), 1vw + 1rem, var(--font-xl));
+}
+
+h4 {
+  font-size: var(--font-lg);
+}
+
+h5 {
+  font-size: var(--font-md);
+}
+
+// TODO: Evaluate this
+p,
+ul,
+ol,
+table,
+blockquote {
+  // Increase default font size.
+  font-size: var(--font-md);
+
+  // TODO: text-wrap: pretty
+  // This would solve the orphans issue forever.
+}
+
+// This selector is needed to override specificity of `main > article > *`
+main > article > blockquote {
+  // TODO: Temporary place and value
+  --clr-quote-border: hsl(223, 60%, 64%);
+  box-shadow: inset 4px 0 0 0 var(--clr-quote-border);
+  // TODO: Left side border and background seem better!?
+  // Add bleed to the blockquotes.
+  grid-column: 1 / 4;
+  // Make blockquotes slightly italic.
+  font-variation-settings: 'slnt' -5;
+  padding-inline: var(--lt-bl-w);
+  // Add easily-counteractable spacing between children.
+  --row-gap: var(--s-2);
+  display: grid;
+  row-gap: var(--row-gap);
+}
+
+sup,
+sub,
+code,
+kbd {
+  // Align inline elements and ensure they don't affect line height.
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+ol,
+ul {
+  // TODO: Evaluate the vertical margins, please
+  // TODO: Decide on padding
+  // TODO: Can I add more space between marker and list item
+  // TODO: Space between list items can be increased (check flexbox article)
+  // TODO: I think we should actually reset lists here and make
+  // them opt-in, instead of opt-out. Add some defaults for
+  // > article inside main and we should be ok.
+  padding-inline-start: var(--s-5);
+}
+
+// TODO: Find this a better home maybe?
+:not(:is(code, kbd, pre)) {
+  font-feature-settings: 'frac', 'cv05', 'cv11', 'calt', 'kern';
+}
+
+// TODO: Tables
+
+@include vmap-to-classes(
+  (
+    'vmap': $V_font-sizes,
+    'property': 'font-size',
+    'prefix': 'fs',
+  )
+);
+@include vmap-to-classes(
+  (
+    'vmap': $V_line-heights,
+    'property': 'line-height',
+    'prefix': 'lh',
+  )
+);
+
+// TODO: Evaluate if we need all of them or we have to subset them or something
+@include map-to-classes($text-align, 'text-align', 'f');
+
+// TODO: See if we need the medium and large variants for font size and text align classes
+
+.f-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.f-clamp {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+// TODO: Tables
+// TODO: Print stylesheet

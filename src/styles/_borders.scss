@@ -1,0 +1,7 @@
+@include vmap-to-classes(
+  (
+    'vmap': $V_border-radii,
+    'property': 'border-radius',
+    'prefix': 'br',
+  )
+);

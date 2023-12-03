@@ -1,0 +1,30 @@
+$position: (
+  'relative': relative,
+);
+
+$display: (
+  'inline-block': 'inline-block',
+  'flex': flex,
+  'grid': grid,
+);
+
+$flex-direction: (
+  'col': column,
+);
+
+$flex-sizing: (
+  'none': none,
+);
+
+$flex-justify: (
+  'center': center,
+);
+
+$flex-align: (
+  'center': center,
+);
+
+$overflow: (
+  'none': hidden,
+  'x': auto,
+);

@@ -1,0 +1,160 @@
+::backdrop {
+  // There seems to be a bug where the color is not applied
+  // unless defined inside the `::backdrop` pseudo-element itself.
+  --clr-search-overlay-bg: hsla(0, 0%, 0%, 0.6);
+
+  // Search - TODO: Check
+  background: var(--clr-search-overlay-bg);
+}
+
+dialog {
+  --search-margin-block-start: 200px;
+  --search-margin-block-end: 200px;
+
+  background: var(--clr-chip-bg);
+  border-radius: var(--br-md);
+  // TODO: Mobile needs love
+  margin: var(--search-margin-block-start) auto var(--search-margin-block-end);
+  width: 100%;
+  max-width: 600px;
+
+  @media (orientation: portrait) {
+    --search-margin-block-start: 100px;
+    --search-margin-block-end: 0px;
+    // TODO: If we do inherited borders, this can be updated.
+    // TODO: Feels weird on split screen desktop, might need to
+    // move elsewhere entirely.
+    border-radius: 0;
+  }
+
+  color: var(--clr-txt-200);
+
+  // Reset the default dialog styles.
+  padding: 0;
+
+  --search-input-height: 60px;
+
+  search {
+    display: grid;
+    grid-template-columns: var(--s-4) 20px auto 32px var(--s-4);
+    align-items: center;
+  }
+
+  svg.icon:first-of-type {
+    grid-column: 2;
+  }
+
+  [type='search'] {
+    background: transparent;
+    outline: 0;
+
+    font-size: var(--font-lg);
+    margin: var(--s-3) var(--s-2);
+
+    // TODO: Check these, random setup
+    --search-ul: 0;
+    // Apply a transition on focus.
+    transition: var(--anm-d-md) ease box-shadow;
+    box-shadow: 0 var(--search-ul) 0 var(--clr-txt-050);
+
+    &:focus {
+      ~ output {
+        border-color: var(--clr-primary-050);
+      }
+    }
+  }
+
+  button {
+    // Apply a transition on hover.
+    transition: var(--anm-d-sh) ease color;
+
+    @media (hover: hover) {
+      &:is(:hover, :focus) {
+        color: var(--clr-primary-100);
+      }
+    }
+  }
+
+  output {
+    grid-column: 1 / -1;
+    padding: var(--s-4) var(--s-2) var(--s-4) var(--s-4);
+    max-height: calc(
+      100vh - var(--search-margin-block-start) - var(--search-margin-block-end) - var(
+          --search-input-height
+        )
+    );
+    overflow-x: auto;
+    // TODO: This is too bright, weaken it a bit.
+    border-top: 1px solid var(--clr-txt-050);
+    transition: var(--anm-d-md) ease border-color;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--s-2);
+
+    // Style the scrollbar.
+    --scrollbar-size: 8px;
+    --scrollbar-bg: transparent;
+    --scrollbar-border: 2px solid var(--clr-chip-bg);
+    --scrollbar-knob-clr: var(--clr-scrollbar-knob);
+    --scrollbar-knob-clr-active: var(--clr-scrollbar-knob-active);
+
+    &::-webkit-scrollbar-track {
+      margin: var(--s-2) 0;
+    }
+
+    h2 {
+      font-weight: 500;
+      font-size: var(--font-sm);
+      color: var(--clr-txt-100);
+    }
+
+    ul {
+      list-style: none;
+      padding-inline-start: 0;
+      display: flex;
+      flex-direction: column;
+      row-gap: var(--s-2);
+      &:not(:last-child) {
+        margin-block-end: var(--s-4);
+      }
+    }
+
+    a {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      // Remove underline from result links.
+      --clr-lnk-ul: transparent;
+      line-height: var(--lh-normal);
+
+      column-gap: var(--s-4);
+
+      padding: var(--s-1-5) 0;
+
+      // Apply a transition on hover.
+      transition: var(--anm-d-md) ease color;
+
+      @media (hover: hover) {
+        &:is(:hover, :focus) {
+          // Only apply hover styles on devices that support hover.
+          color: var(--clr-primary-050);
+
+          > small {
+            color: var(--clr-primary-050);
+          }
+        }
+      }
+
+      small {
+        font-size: var(--font-xs);
+        color: var(--clr-txt-050);
+      }
+    }
+
+    p {
+      padding-block: var(--s-2);
+      text-wrap: pretty;
+    }
+  }
+}

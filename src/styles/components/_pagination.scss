@@ -1,0 +1,91 @@
+nav[aria-label='Pagination'] {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  // clamp(52px, 12.5vw, 128px)
+  // 1fr
+  // clamp(52px, 12.5vw, 128px);
+  column-gap: var(--s-2);
+
+  width: fit-content;
+  margin-inline: auto;
+  // TODO: Temp.
+  margin-block: var(--s-8) var(--s-4);
+
+  a {
+    // Remove underline from pagination links.
+    --clr-lnk-ul: transparent;
+
+    font-weight: 500;
+    min-width: 44px;
+
+    border-radius: var(--br-md);
+
+    &:not([aria-current='page']) {
+      padding: var(--s-3) var(--s-3-5);
+      line-height: 1;
+
+      // Apply a transition on hover.
+      transition: var(--anm-d-md) ease color;
+
+      @media (hover: hover) {
+        &:is(:hover, :focus) {
+          color: var(--clr-primary-100);
+        }
+      }
+    }
+
+    &[aria-current='page'] {
+      font-size: var(--font-xl);
+      cursor: default;
+      color: var(--clr-txt-100);
+    }
+
+    &[rel] {
+      min-width: 120px;
+    }
+  }
+
+  svg.icon {
+    display: inline;
+    flex-shrink: 0;
+  }
+
+  > a {
+    display: inline-flex;
+    align-items: center;
+    column-gap: var(--s-1);
+    justify-content: center;
+
+    // background-color: var(--clr-chip-bg);
+
+    justify-self: center;
+  }
+
+  section {
+    display: flex;
+    column-gap: var(--s-2);
+    align-items: center;
+
+    font-size: var(--font-md);
+
+    a {
+      text-align: center;
+    }
+  }
+
+  // TODO: Evaluate this calculation.
+  @media (max-width: 52ch) {
+    a[rel] {
+      span {
+        position: absolute;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        width: 1px;
+        margin: -1px;
+        padding: 0;
+        border: 0;
+      }
+    }
+  }
+}

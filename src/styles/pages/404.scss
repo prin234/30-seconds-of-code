@@ -1,0 +1,37 @@
+// Styles for the 404 page. As these are only used in that specific page, it's
+// better to keep them in a separate file and import them only in the page.
+.page-not-found {
+  // TODO: This guy might need a little padding.
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: var(--s-4);
+
+  padding: var(--s-4) var(--s-6);
+
+  img {
+    border-radius: var(--br-lg);
+  }
+
+  h1 {
+    padding-block: var(--s-4) 0;
+  }
+
+  p {
+    font-size: var(--font-sm);
+    color: var(--clr-txt-100);
+    padding-block: 0 var(--s-6);
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  a {
+    // Remove underline from linkable titles.
+    --clr-lnk-ul: transparent;
+    display: flex;
+    padding: var(--s-2-5) var(--s-3-5);
+    column-gap: var(--s-2-5);
+    font-size: var(--font-md);
+    font-weight: 500;
+  }
+}

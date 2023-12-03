@@ -1,0 +1,56 @@
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  // TODO: Not in love with this one
+  --column-gap: calc(2.5 * var(--s-4));
+  column-gap: var(--column-gap);
+  row-gap: var(--s-4);
+  align-items: center;
+
+  // TODO: Random values
+  padding-block: var(--s-6) var(--s-8);
+
+  div {
+    max-width: calc(var(--lt-c-cw) - var(--column-gap) - 240px);
+  }
+
+  &:not(:has(img)) {
+    padding-inline: var(--s-6);
+  }
+
+  h1 {
+    // TODO: This looks kinda wrong
+    // TODO: This doesn't feel quite right on static pages
+    font-size: var(--font-x2);
+  }
+
+  h1,
+  h2 {
+    padding-block-end: var(--s-4);
+  }
+
+  p {
+    text-wrap: balance;
+  }
+
+  img {
+    border-radius: var(--br-md);
+  }
+
+  // TODO: Change everything so that this aligns with grid as normal.
+  // It shouldn't be breakout contentm probably.
+  @media (max-width: #{$spaced-main-column-width}) {
+    // If the viewport isn't wide enough, add some horizontal padding.
+    padding-inline: var(--s-6);
+    justify-content: center;
+
+    img {
+      order: -1;
+    }
+
+    h1,
+    h2 {
+      text-align: center;
+    }
+  }
+}

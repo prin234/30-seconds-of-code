@@ -1,0 +1,82 @@
+a {
+  &:any-link {
+    // Remove default text-decoration.
+    text-decoration: none;
+    // Optimize for opt-in styling instead of opt-out.
+    color: inherit;
+  }
+
+  // Use local variables to calculate box-shadow states (for underline).
+  // Default underline height (in `px`) when not hovered.
+  --lnk-ul: 1px;
+  // Additional underline height (in `px`) when hovered.
+  // The final product is calculated as lnk-ul + lnk-ul-hvr
+  --lnk-ul-hvr: 1px;
+  // Link underline color, can be overriden by special link types
+  --clr-lnk-ul: var(--clr-primary-100);
+
+  // Add a subtle underline.
+  box-shadow: 0 var(--lnk-ul) 0 var(--clr-lnk-ul);
+  // Apply a transition on hover.
+  transition: var(--anm-d-md) ease box-shadow;
+
+  @media (hover: hover) {
+    &:is(:hover, :focus) {
+      // Only apply hover styles on devices that support hover.
+      box-shadow: 0 calc(var(--lnk-ul) + var(--lnk-ul-hvr)) 0 var(--clr-lnk-ul);
+    }
+  }
+}
+
+// Note: Instead of using a selector like `a:has(>code)` which would fail for
+// mixed content (e.g. "modulo operator (`%`)") inside the link, we opt to add
+// a `br-sm` class from the markdown parser to counteract the border-radius.
+// However, the border-radius doesn't play that nice with line breaks, so we add
+// the box-decoration-break property to make sure the border-radius is applied.
+a:has(> code) {
+  // Render box fragments independently.
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+// Note: It is expected that only titles inside the main body of a snippet are
+// linkable and we can target the link using the fact that it has and `id`.
+:is(h2, h3, h4) > a[id] {
+  // Remove underline from linkable titles.
+  --clr-lnk-ul: transparent;
+  // Opacity of the hash link.
+  --lnk-hsh-op: 0;
+
+  position: relative;
+
+  &::before {
+    position: absolute;
+    // Display a hash according to the heading size (roughly 1 size smaller).
+    content: '#';
+    font-size: 0.8em;
+    text-align: center;
+    // TODO: 500? Really? It's an exception but looks alright
+    font-weight: 500;
+    left: calc(-1 * var(--lt-bl-w));
+    width: var(--lt-bl-w);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--clr-primary-050);
+    // Opacity of the hash link.
+    opacity: var(--lnk-hsh-op);
+    // Apply a transition on hover.
+    transition: var(--anm-d-sh) ease-out opacity;
+  }
+
+  @media (hover: hover) {
+    &:is(:hover, :focus) {
+      // Only apply hover styles on devices that support hover.
+      --lnk-hsh-op: 1;
+    }
+  }
+}
+
+// Add a border radius to match code reference links.
+a[data-code-reference='true'] {
+  border-radius: var(--br-sm);
+}

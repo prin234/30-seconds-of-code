@@ -1,0 +1,96 @@
+@use 'sass:map';
+
+/// Maps a map to CSS classes
+/// @param {Map} $map - The map to map over
+/// @param {String} $property - The CSS property to set
+/// @param {String} $prefix ('') - The prefix to add to the class names
+@mixin map-to-classes($map, $property, $prefix: '') {
+  @if $prefix != '' {
+    $prefix: $prefix + '-';
+  }
+  @each $key, $value in $map {
+    .#{$prefix}#{$key} {
+      #{$property}: #{$value};
+    }
+  }
+}
+
+/// Maps a vmap to CSS variables
+/// @param {Map} $vmap - The vmap to map over
+@mixin vmap-to-variables($vmap) {
+  @each $key, $value in map.get($vmap, 'vars') {
+    #{$key}: #{$value};
+  }
+}
+
+/// Maps a vmap to CSS classes
+/// @param {Map} $args - Arguments containing the following keys:
+/// - `vmap` - The vmap to map over
+/// - `property` - The CSS property to set
+/// - `variable` ('') - The CSS variable to set. If omitted, the property will
+///     be set directly
+/// - `prefix` ('') - The prefix to add to the class names. If omitted, no
+///    prefix will be added
+@mixin vmap-to-classes($args) {
+  $property: map.get($args, 'property');
+
+  // Prepare the correct variable
+  $variable: map.get($args, 'variable');
+  $has-variable: $variable and $variable != '';
+  @if $has-variable {
+    $variable: str-prefix($variable, '--');
+  } @else {
+    $variable: '';
+  }
+
+  // Prepare the correct prefix
+  $prefix: map.get($args, 'prefix');
+  @if $prefix and $prefix != '' {
+    $prefix: $prefix + '-';
+  } @else {
+    $prefix: '';
+  }
+
+  // Get map key-value pairs
+  $map-keys: map.get(map.get($args, 'vmap'), 'keys');
+
+  @each $key, $value in $map-keys {
+    // Transform dashes to spaces for class names
+    $key: str-replace($key, '-', '\\.');
+
+    .#{$prefix}#{$key} {
+      @if $has-variable {
+        #{$variable}: var(#{$value});
+        #{$property}: var(#{$variable});
+      } @else {
+        #{$property}: var(#{$value});
+      }
+    }
+  }
+}
+
+/// Maps a vmap to multiple CSS classes. Does not support variables.
+/// @param {Map} $vmap - The vmap to map over
+/// @param {Map} $prefix-map - A map of prefixes to properties
+@mixin vmap-to-multiple-classes($vmap, $prefix-map) {
+  @each $prefix, $property in $prefix-map {
+    @include vmap-to-classes(
+      (
+        'vmap': $vmap,
+        'property': $property,
+        'prefix': $prefix,
+      )
+    );
+  }
+}
+
+@mixin visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}

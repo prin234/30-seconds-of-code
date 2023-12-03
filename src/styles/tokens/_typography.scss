@@ -1,0 +1,36 @@
+// Font sizes (font-)
+// Calculated with a base size of 16px,
+// TODO: Some of these sizes (e.g. `xs` are unused)
+// TODO: We might want to switch the scale to something more relevant to 18px
+// TODO: We might need a `2.25rem` size, might wanna redo headings
+$font-sizes: (
+  no: 0,
+  mi: 0.75rem,
+  xs: 0.875rem,
+  sm: 1rem,
+  md: 1.125rem,
+  lg: 1.25rem,
+  xl: 1.5rem,
+  x2: 2rem,
+  x3: 2.5rem,
+);
+$V_font-sizes: vmap($font-sizes, 'font');
+
+// Line height (lh-)
+$line-heights: (
+  loose: 1.75,
+  normal: 1.5,
+  tight: 1.25,
+);
+$V_line-heights: vmap($line-heights, 'lh');
+
+$text-align: (
+  'left': left,
+  'center': center,
+  'right': right,
+);
+
+:root {
+  @include vmap-to-variables($V_font-sizes);
+  @include vmap-to-variables($V_line-heights);
+}

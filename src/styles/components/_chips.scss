@@ -1,0 +1,77 @@
+// Reusable chip entity.
+.chip {
+  // Remove underline from chip links.
+  --clr-lnk-ul: transparent;
+
+  display: inline-block;
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--br-md);
+
+  background: var(--clr-chip-bg);
+
+  line-height: var(--lh-tight);
+
+  // TODO: Evaluate
+  font-weight: 500;
+
+  // Apply a transition on hover.
+  transition: var(--anm-d-md) ease color;
+
+  // TODO: Might want to swap this with the hover color.
+  // Selected state
+  &:is([data-selected], [data-selected='true']) {
+    color: var(--clr-primary-100);
+  }
+
+  @media (hover: hover) {
+    &:is(:hover, :focus) {
+      color: var(--clr-primary-050);
+    }
+  }
+}
+
+nav[aria-label='Subcategories'] {
+  // TODO: Moved this out of the `layout` file, but seems like
+  // both this and crumbs use the same setup.
+  display: grid;
+  grid-template-columns: var(--lt-bl-w) 1fr var(--lt-bl-w);
+
+  ul {
+    // Place the content in the middle column (no bleed)
+    grid-column: 2;
+    gap: var(--s-4);
+    list-style: none;
+    padding-inline-start: 0;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  li {
+    flex: none;
+  }
+
+  @media (pointer: coarse) {
+    ul {
+      // Add horizontal scroll on mobile devices.
+      overflow-x: auto;
+      flex-wrap: nowrap;
+
+      // Make the element span the entire width of the grid.
+      grid-column: 1 / 4;
+      // Add inline padding to counteract the grid padding.
+      padding-inline: var(--lt-bl-w);
+
+      padding-block-end: var(--s-2);
+
+      // Style scrollbar on mobile devices.
+      --scrollbar-size: 2.5px;
+      --scrollbar-bg: transparent;
+      --scrollbar-border: none;
+      --scrollbar-knob-clr: var(--clr-scrollbar-knob);
+
+      &::-webkit-scrollbar-track {
+        margin: 0 calc(2 * var(--s-8));
+      }
+    }
+  }
+}

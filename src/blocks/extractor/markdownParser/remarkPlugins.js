@@ -72,8 +72,7 @@ export const linkInlineCode = ({ references }) => {
         node.tagName = `a`;
         node.properties = {
           href: reference,
-          // Add a border radius to match the style of inline code elements
-          className: 'br-sm',
+          dataCodeReference: 'true',
         };
         node.children = [innerNode];
       }
@@ -166,6 +165,7 @@ export const wrapTables = ({ className }) => {
 
         // Wrap the table in a div
         const innerNode = { ...node, children: [...node.children] };
+        // TODO: Might be worth turning this into a `section`?
         node.tagName = `div`;
         node.properties = { className };
         node.children = [innerNode];

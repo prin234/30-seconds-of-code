@@ -1,0 +1,94 @@
+@use 'sass:string';
+@use 'sass:map';
+
+/// Replace `$search` with `$replace` in `$string`
+/// @param {String} $string - Initial string
+/// @param {String} $search - Substring to replace
+/// @param {String} $replace ('') - New value
+/// @return {String} - Updated string
+@function str-replace($string, $search, $replace: '') {
+  $index: string.index($string, $search);
+
+  @if $index {
+    @return string.slice($string, 1, $index - 1) + $replace +
+      str-replace(
+        string.slice($string, $index + string.length($search)),
+        $search,
+        $replace
+      );
+  }
+
+  @return $string;
+}
+
+/// Add `$prefix` to `$string` if it doesn't already start with it
+/// @param {String} $string - Initial string
+/// @param {String} $prefix - Prefix to add
+@function str-prefix($string, $prefix) {
+  $index: string.index($string, $prefix);
+
+  @if $index != 1 {
+    @return $prefix + $string;
+  } @else {
+    @return $string;
+  }
+}
+
+/// Select keys from a map, and return a new map
+/// @param {Map} $map - Initial map
+/// @param {List} $keys - Keys to select
+@function map-select($map, $keys...) {
+  $result: ();
+
+  @each $key in $keys {
+    $result: map.set($result, $key, map.get($map, $key));
+  }
+
+  @return $result;
+}
+
+/// Duplicate a map, and set all values to `$value`
+/// @param {Map} $map - Initial map
+/// @param {*} $value - Value to set
+@function map-duplicate-with-value($map, $value) {
+  $result: ();
+
+  @each $key in map.keys($map) {
+    $result: map.set($result, $key, $value);
+  }
+
+  @return $result;
+}
+
+/// Converts a map to a vmap
+/// A vamp contains two maps:
+/// - `vars` - A map of CSS variables to values
+/// - `keys` - A map of keys to CSS variables
+/// @param {Map} $map - Initial map
+/// @param {String} $prefix ('') - Prefix for CSS variables
+@function vmap($map, $prefix: '') {
+  $vars: ();
+  $keys: ();
+
+  @if $prefix != '' {
+    $prefix: $prefix + '-';
+  }
+
+  @each $key, $value in $map {
+    $var: '--#{$prefix}#{$key}';
+    $vars: map.set($vars, $var, $value);
+    $keys: map.set($keys, $key, $var);
+  }
+
+  @return (vars: $vars, keys: $keys);
+}
+
+/// Select keys from a vmap, and return a new vmap
+/// @param {Map} $map - Initial vmap
+/// @param {List} $keys - Keys to select
+@function vmap-select($map, $keys...) {
+  $keys: map-select(map.get($map, 'keys'), $keys...);
+  $vars: map-select(map.get($map, 'vars'), map.values($keys)...);
+
+  @return (vars: $vars, keys: $keys);
+}

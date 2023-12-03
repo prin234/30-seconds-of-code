@@ -1,0 +1,39 @@
+// Brand colors (clr-primary-)
+$primary-colors: (
+  '050': hsl(217, 98%, 77%),
+  '100': hsl(217, 98%, 66%),
+  '200': hsl(224, 97%, 49%),
+);
+$V_primary-colors: vmap($primary-colors, 'clr-primary');
+
+// Text colors (clr-txt-)
+$text-colors: (
+  '050': hsl(240, 10%, 70%),
+  '100': hsl(240, 10%, 80%),
+  '200': hsl(240, 10%, 90%),
+);
+$V_text-colors: vmap($text-colors, 'clr-txt');
+
+// Inline code colors (clr-code-)
+$code-colors: (
+  'bg': hsl(225, 42%, 16%),
+);
+$V_code-colors: vmap($code-colors, 'clr-code');
+
+:root {
+  // Page background
+  --clr-bg: hsl(240, 61%, 7%);
+
+  @include vmap-to-variables($V_primary-colors);
+  @include vmap-to-variables($V_text-colors);
+
+  @include vmap-to-variables($V_code-colors);
+  // @include vmap-to-variables($V_code-block-colors);
+
+  // Scrollbars
+  --clr-scrollbar-knob: hsl(240, 17%, 17%);
+  --clr-scrollbar-knob-active: hsl(240, 15%, 20%);
+
+  // Chips - TODO: Check
+  --clr-chip-bg: hsl(240, 29%, 12%);
+}

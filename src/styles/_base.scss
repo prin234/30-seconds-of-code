@@ -1,0 +1,41 @@
+*,
+*::before,
+*::after {
+  // Prevent padding and border from affecting element width.
+  box-sizing: border-box;
+  // Minimize friction when adding borders to elements.
+  border-width: 0;
+  border-style: solid;
+}
+
+* {
+  // Remove default margins.
+  margin: 0;
+}
+
+html,
+body {
+  // Allow percentage-based heights.
+  height: 100%;
+}
+
+html {
+  // Prevent font size inflation on mobile.
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  // Remove margin in all browsers.
+  margin: 0;
+  // Apply the website's background
+  background: var(--clr-bg);
+  // Apply the website's text color
+  color: var(--clr-txt-200);
+  // Improve text rendering.
+  -webkit-font-smoothing: antialiased;
+}
+
+[hidden] {
+  // Make elements with the HTML hidden attribute stay hidden by default.
+  display: none;
+}

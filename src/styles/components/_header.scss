@@ -1,0 +1,56 @@
+@use 'sass:map';
+
+header {
+  grid-area: hc;
+
+  display: flex;
+  // Center the content vertically.
+  align-items: center;
+  // Wrap and center the content horizontally if it doesn't fit in one line.
+  flex-wrap: wrap;
+  justify-content: center;
+
+  column-gap: var(--s-2);
+  // Customize row gap to respect the user's font size (acts kinda like a line height).
+  row-gap: 0.75rem;
+
+  padding-block: var(--s-5) var(--s-8);
+
+  @media (max-width: #{$spaced-main-column-width}) {
+    // If the viewport isn't wide enough, add some horizontal padding.
+    padding-inline: var(--s-6) var(--s-3);
+  }
+
+  // 8.75rem = the width of the logo + 2 * s-6 for the inline padding
+  // + s-2 for the column gap + 4 * 1.5rem for nav icons + 8 * s-3 for icon padding
+  @media (min-width: calc(8.75rem + 2 * map.get($spacing, '6') + map.get($spacing, '2') + 4 * 1.5rem + 8 * map.get($spacing, '3'))) {
+    // If content is guaranteed to fit, change the spacing and alignment.
+    justify-content: space-between;
+  }
+
+  h1 img {
+    // Make the logo respond to the user's font size.
+    width: 8.75rem;
+  }
+
+  nav {
+    display: flex;
+    color: var(--clr-txt-050);
+
+    :is(a, button) {
+      // Remove underline from links.
+      --clr-lnk-ul: transparent;
+      display: inline-block;
+      padding: var(--s-3);
+      border-radius: var(--br-sm);
+      // Apply a transition on hover.
+      transition: var(--anm-d-md) ease color;
+
+      @media (hover: hover) {
+        &:is(:hover, :focus) {
+          color: var(--clr-txt-200);
+        }
+      }
+    }
+  }
+}

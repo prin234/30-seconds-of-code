@@ -1,0 +1,385 @@
+:is(pre, code, kbd) {
+  // TODO: Do something about that variable font - Most likely not, too much hassle
+  // Setup Roboto mono as the default font
+  font-family: 'Roboto Mono', Menlo, Consolas, monospace;
+
+  * {
+    // Inherit the font family for nested elements
+    font-family: inherit;
+  }
+
+  // TODO: Evaluate how this affects `pre`
+  // Set a default font size (customized to code elements)
+  font-size: 16px;
+  // Give code elements a background color
+  background: var(--clr-code-bg);
+  // Squeeze the code blocks a bit
+  letter-spacing: -0.2px;
+}
+
+code,
+kbd {
+  // Render box fragments independently.
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding: var(--s-0-5) var(--s-1-5);
+  border-radius: var(--br-sm);
+}
+
+// Do not apply inside of headings, in order to preserve regular styling.
+:not(:is(h1, h2, h3, h4)) > a > code {
+  // Remove bottom border radius and padding when code inside a link.
+  padding-block-end: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+pre {
+  // Relative position pre elements to allow for absolute positioning of the
+  // language label.
+  position: relative;
+  padding: var(--s-6) var(--lt-bl-w);
+  border-radius: var(--br-md);
+  // Ensure long lines that can't wrap are responsive on mobile.
+  overflow: auto;
+  // Make sure long lines wrap, if opporrunities exist.
+  white-space: pre-wrap;
+  // Make sure no hypens are added to the code blocks.
+  -webkit-hyphens: none;
+  hyphens: none;
+  // Set the tab-size to 2 spaces.
+  tab-size: 2;
+  // Set a tighter line height for code blocks.
+  line-height: var(--lh-normal);
+
+  // TODO: &::selection & ::selection {} with a good background
+}
+
+// This selector is needed to override specificity of `main > article > *`
+main > article > pre {
+  // Add bleed to the code blocks
+  grid-column: 1 / 4;
+
+  + pre {
+    // Remove block-margin-start to counteract parent's --row-gap
+    margin-block-start: calc(-1 * var(--row-gap, 0));
+  }
+}
+
+pre:has(+ pre) {
+  // Remove bottom border radius from the first code block
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+pre + pre {
+  // Remove top border radius from the second code block
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+:is(h1, h2, h3, h4) code {
+  // Dynamically size code elements inside headings.
+  // The ratio roughly corresponds to the 18px/16px ratio inside regular text.
+  font-size: 0.875em;
+  // Apply the correct bold font weight.
+  font-weight: 500;
+}
+
+pre[data-code-language] {
+  padding-block-start: 3rem;
+
+  &::before {
+    font-family: 'Inter', Helvetica, sans-serif;
+    font-size: var(--font-sm);
+    font-weight: 600;
+    position: absolute;
+    top: var(--s-4);
+    left: var(--lt-bl-w);
+    display: block;
+    content: attr(data-code-language);
+  }
+}
+
+/*
+	--color-fg-default: #c9d1d9;
+	--color-bg-code-block: #161b22;
+	--color-bg-inline-code-block: rgb(110 118 129 / 40%);
+	--color-gray: #8b949e;
+	--color-red: #ff7b72;
+	--color-green: #7ee787;
+	--color-blue: #79c0ff;
+	--color-indigo: #a5d6ff;
+	--color-purple: #d2a8ff;
+	--color-brown: #ffa657;
+*/
+
+// TODO: REVISIT later
+// Source: https://github.com/jongwooo/prism-theme-github
+// Some cool ideas here: https://github.com/mika-f/prismjs-vscode-dark/blob/master/src/dark-plus-theme.scss
+:root {
+  --color-fg-default: #c9d1d9;
+  --color-bg-code-block: #161b22;
+  --color-bg-inline-code-block: rgb(110 118 129 / 40%);
+  --color-gray: #8b949e;
+  --color-red: #ff7b72;
+  --color-green: #7ee787;
+  --color-blue: #79c0ff;
+  --color-indigo: #a5d6ff;
+  --color-purple: #d2a8ff;
+  --color-brown: #ffa657;
+}
+
+.token.comment,
+.token.prolog,
+.token.cdata {
+  color: var(--color-gray);
+}
+
+.token.doctype,
+.token.punctuation,
+.token.entity {
+  color: var(--color-fg-default);
+}
+
+.token.attr-name,
+.token.class-name,
+.token.boolean,
+.token.constant,
+.token.number,
+.token.atrule {
+  color: var(--color-blue);
+}
+
+.token.keyword {
+  color: var(--color-indigo);
+}
+
+.token.property,
+.token.tag,
+.token.symbol,
+.token.deleted,
+.token.important {
+  color: var(--color-green);
+}
+
+.token.selector,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted,
+.token.regex,
+.token.attr-value,
+.token.attr-value > .token.punctuation {
+  color: var(--color-blue);
+}
+
+.token.variable,
+.token.operator,
+.token.function {
+  color: var(--color-indigo);
+}
+
+.token.url {
+  color: var(--color-green);
+}
+
+/* HTML overrides */
+.token.attr-value > .token.punctuation.attr-equals,
+.token.special-attr > .token.attr-value > .token.value.css {
+  color: var(--color-fg-default);
+}
+
+/* CSS overrides */
+.language-css .token.selector {
+  color: var(--color-green);
+}
+
+.language-css .token.property {
+  color: var(--color-blue);
+}
+
+.language-css .token.important,
+.language-css .token.atrule .token.rule {
+  color: var(--color-red);
+}
+
+/* JS overrides */
+.language-js .token.keyword,
+.language-javascript .token.keyword {
+  color: var(--color-red);
+}
+
+.language-js .token.operator,
+.language-js .token.constant,
+.language-js .token.boolean,
+.language-js .token.number,
+.language-js .token.atrule,
+.language-javascript .token.operator,
+.language-javascript .token.constant,
+.language-javascript .token.boolean,
+.language-javascript .token.number,
+.language-javascript .token.atrule {
+  color: var(--color-blue);
+}
+
+.language-js .token.function,
+.language-javascript .token.function {
+  color: var(--color-purple);
+}
+
+.language-js .token.attr-name,
+.language-js .token.class-name,
+.language-js .token.function-variable,
+.language-javascript .token.attr-name,
+.language-javascript .token.class-name,
+.language-javascript .token.function-variable {
+  color: var(--color-brown);
+}
+
+/* JSX overrides */
+.language-jsx .token.keyword {
+  color: var(--color-red);
+}
+
+.language-jsx .token.function {
+  color: var(--color-purple);
+}
+
+.language-jsx .token.function-variable {
+  color: var(--color-brown);
+}
+
+.language-jsx .token.punctuation {
+  color: var(--color-blue);
+}
+
+.language-jsx .token.attr-name,
+.language-jsx .token.class-name {
+  color: var(--color-green);
+}
+
+.language-jsx .token.string {
+  color: var(--color-indigo);
+}
+
+/* JSON overrides */
+.language-json .token.operator {
+  color: var(--color-fg-default);
+}
+
+.language-json .token.null.keyword {
+  color: var(--color-blue);
+}
+
+/* Java overrides */
+// .language-java .token.keyword {
+//   color: var(--color-red);
+// }
+
+// .language-java .token.operator,
+// .language-java .token.constant,
+// .language-java .token.boolean,
+// .language-java .token.number,
+// .language-java .token.atrule {
+//   color: var(--color-blue);
+// }
+
+// .language-java .token.function {
+//   color: var(--color-purple);
+// }
+
+// .language-java .token.attr-name,
+// .language-java .token.function-variable {
+//   color: var(--color-green);
+// }
+
+/* Kotlin overrides */
+// .language-kotlin .token.keyword {
+//   color: var(--color-red);
+// }
+
+// .language-kotlin .token.operator,
+// .language-kotlin .token.constant,
+// .language-kotlin .token.boolean,
+// .language-kotlin .token.number,
+// .language-kotlin .token.atrule {
+//   color: var(--color-blue);
+// }
+
+// .language-kotlin .token.function {
+//   color: var(--color-purple);
+// }
+
+// .language-kotlin .token.attr-name,
+// .language-kotlin .token.function-variable {
+//   color: var(--color-green);
+// }
+
+/* Go overrides */
+// .language-go .token.keyword {
+//   color: var(--color-red);
+// }
+
+// .language-go .token.operator,
+// .language-go .token.constant,
+// .language-go .token.boolean,
+// .language-go .token.number,
+// .language-go .token.atrule {
+//   color: var(--color-blue);
+// }
+
+// .language-go .token.function {
+//   color: var(--color-purple);
+// }
+
+// .language-go .token.attr-name,
+// .language-go .token.function-variable {
+//   color: var(--color-green);
+// }
+
+/* YAML overrides */
+// .language-yml .token.atrule,
+// .language-yaml .token.atrule {
+//   color: var(--color-green);
+// }
+
+/* Dockerfile overrides */
+// .language-dockerfile .token.keyword {
+//   color: var(--color-red);
+// }
+
+// .language-dockerfile .token.function {
+//   color: var(--color-purple);
+// }
+
+// .language-dockerfile .token.punctuation {
+//   color: var(--color-blue);
+// }
+
+// .language-dockerfile .token.attr-name,
+// .language-dockerfile .token.class-name {
+//   color: var(--color-green);
+// }
+
+// .language-dockerfile .token.string {
+//   color: var(--color-indigo);
+// }
+
+/* General */
+.token.bold {
+  font-weight: 500;
+}
+
+.token.comment,
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.namespace {
+  opacity: 0.8;
+}

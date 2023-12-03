@@ -1,73 +1,58 @@
-// Display, flex, grid, position, box-sizing
-.inline-block {
-  display: inline-block;
-}
-.flex {
-  display: flex;
-}
-.grid {
+body {
+  // Layout column C (center) width
+  --lt-c-cw: #{$main-column-width};
+  // Layout bleed width (either side)
+  --lt-bl-w: var(--s-6);
+
   display: grid;
-}
-.flex-col {
-  flex-direction: column;
-}
-.j-center {
-  justify-content: center;
-}
-.a-center {
-  align-items: center;
-}
-.flex-none {
-  flex: none;
-}
-.relative {
-  position: relative;
-}
-.box-border {
-  box-sizing: border-box;
-}
-.ar-wide {
-  width: 100%;
-  aspect-ratio: 2;
-  object-fit: cover;
-}
-.no-overflow {
-  overflow: hidden;
-}
-.overflow-x {
-  overflow-x: auto;
-}
-
-// Content container
-.content {
-  grid-template-columns: 0 100% 0;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(auto, var(--lt-c-cw))
+    minmax(0, 1fr);
   grid-template-rows: auto auto auto auto;
-  grid-template-areas: 'l1 c1 r1' 'l2 c2 r2' 'l3 c3 r3' 'l4 c4 r4';
-
-  @media screen and (min-width: $layout-medium-breakpoint) {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 874px) minmax(0, 1fr);
-  }
+  // Note: a area is unused currently, might be needed for aside
+  //  on mobile later down the line, same goes for l and r columns
+  grid-template-areas:
+    'hl hc hr'
+    'ml mc mr'
+    'al ac ar'
+    'fl fc fr';
 }
-// Grid areas
-@mixin generate-grid-areas($areas, $rows) {
-  @for $row from 1 through $rows {
-    @each $area in $areas {
-      .g-#{$area}#{$row} {
-        grid-area: #{$area}#{$row};
-      }
+
+// TODO: Use the width + scroll + space media query to work around the border
+// radiuses. Basically define a radius at the very top and then zero it out
+// inside `article`-related components below the threshold. This ensures that
+// the content bleeds to the edge of the screen properly.
+// TODO: This same query could be used to create a generic spacing thing across
+// components and then inherit it via variables. Less easy to work with, but
+// could be worth doing.
+
+main {
+  grid-area: mc;
+
+  // Explicitly set which elements will be grid containers.
+  > article {
+    display: grid;
+    grid-template-columns: var(--lt-bl-w) 1fr var(--lt-bl-w);
+
+    > * {
+      // Place the content in the middle column (no bleed)
+      grid-column: 2;
     }
   }
 }
 
-// Specific styles used in some components, that were overkill to have as component-specific classes
-@media screen and (min-width: $layout-medium-breakpoint) {
-  .md\:order-2 {
-    order: 2;
-  }
-
-  .md\:flex-wrap {
-    flex-wrap: wrap;
-  }
+// This only applies for the snippet page, as it's the only place where
+// `article` is a direct child of `main`.
+main > article {
+  --row-gap: var(--s-6);
+  row-gap: var(--row-gap);
 }
 
-@include generate-grid-areas(('l', 'c', 'r'), 4);
+@include map-to-classes($position, 'position');
+@include map-to-classes($display, 'display');
+@include map-to-classes($flex-direction, 'flex-direction');
+@include map-to-classes($flex-sizing, 'flex');
+@include map-to-classes($flex-justify, 'justify-content', 'j');
+@include map-to-classes($flex-align, 'align-items', 'a');
+@include map-to-classes($overflow, 'overflow', 'o');
