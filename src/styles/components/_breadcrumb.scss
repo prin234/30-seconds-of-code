@@ -1,0 +1,55 @@
+nav[aria-label='Breadcrumb'] {
+  // Set up a grid layout with standard bleed on either side.
+  @include layout-grid-with-bleed;
+  --breadcrumb_column-gap: var(--spacing-2);
+
+  ol {
+    // Place the content in the middle column (no bleed)
+    grid-column: 2;
+    padding-inline-start: 0;
+    display: flex;
+    color: var(--color-text-light);
+    column-gap: var(--breadcrumb_column-gap);
+    font-size: var(--font-sm);
+    // TODO: These need to be margins!
+    padding-block-end: var(--spacing-8);
+    // If all else fails, wrap the breadcrumbs.
+    flex-wrap: wrap;
+  }
+
+  li {
+    display: flex;
+    column-gap: var(--breadcrumb_column-gap);
+
+    // Hide the current page breadcrumb, but keep it accessible.
+    &:has([aria-current='page']) {
+      @include visually-hidden;
+    }
+
+    // Query depending on how many characters can fit in a line, assuming that
+    // the user may change the default font size.
+    @media (max-width: 25rem) {
+      &:first-child {
+        // Visually hide the first breadcrumb (Home) on smaller viewports.
+        @include visually-hidden;
+      }
+    }
+  }
+
+  a {
+    // Remove underlines from links.
+    --link_color-underline: transparent;
+    // Apply a transition on hover.
+    transition: color var(--animation-duration-medium) ease-out;
+
+    @media (hover: hover) {
+      &:is(:hover, :focus) {
+        // TODO: Primary for hover could be a better choice arguably?
+        // TODO: If we turn all of these to 200 by default and use primary,
+        // we can select the rest to be 100 when one is hovered? Unsure.
+        // Only apply hover styles on devices that support hover.
+        color: var(--color-text);
+      }
+    }
+  }
+}

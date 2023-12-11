@@ -1,0 +1,85 @@
+nav[aria-label='Pagination'] {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  // clamp(52px, 12.5vw, 128px)
+  // 1fr
+  // clamp(52px, 12.5vw, 128px);
+  column-gap: var(--s-2);
+
+  width: fit-content;
+  margin-inline: auto;
+  // TODO: Temp.
+  margin-block: var(--s-8) var(--s-4);
+
+  a {
+    // Remove underline from pagination links.
+    --link_color-underline: transparent;
+
+    font-weight: var(--font-weight-medium);
+    min-width: 44px;
+
+    border-radius: var(--border-radius-medium);
+
+    // TODO: Maybe give these some background!?
+    &:not([aria-current='page']) {
+      padding: var(--s-3);
+      line-height: 1;
+
+      // Apply a transition on hover.
+      transition: color var(--animation-duration-medium) ease;
+
+      @media (hover: hover) {
+        &:is(:hover, :focus) {
+          color: var(--color-primary);
+        }
+      }
+    }
+
+    &[aria-current='page'] {
+      font-size: var(--font-xl);
+      cursor: default;
+      color: var(--color-text-light);
+    }
+
+    &[rel] {
+      // TODO: Might want to use `rem`s with a `clamp()`.
+      min-width: 120px;
+    }
+  }
+
+  svg.icon {
+    display: inline;
+    flex-shrink: 0;
+  }
+
+  > a {
+    display: inline-flex;
+    align-items: center;
+    column-gap: var(--spacing-2);
+    justify-content: center;
+    // TODO: Figure this out
+    // background-color: var(--color-background-light);
+
+    justify-self: center;
+  }
+
+  section {
+    display: flex;
+    column-gap: var(--s-2);
+    align-items: center;
+
+    font-size: var(--font-md);
+
+    a {
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 32rem) {
+    // Respond to user's font size in order to visually hide the text.
+    a[rel] span {
+      // Visually hide `previous` and `next` text on small viewports.
+      @include visually-hidden;
+    }
+  }
+}

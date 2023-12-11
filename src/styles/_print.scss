@@ -1,16 +1,19 @@
+// TODO: This is copied verbatim from the old system. Give it some love -> media="print"
+// Right before the end.
 @media print {
   // Use colors that are more visible on printed documents.
   :root {
     --clr-bg: none;
-
+    // TODO: Transfer these to tokens somehow, use copy etc.
     --clr-txt-200: hsla(0, 0%, 0%, 0.95);
     --clr-txt-150: hsla(0, 0%, 0%, 0.87);
     --clr-txt-100: hsla(0, 0%, 0%, 0.76);
     --clr-txt-050: hsla(0, 0%, 0%, 0.64);
-
+    // TODO: Make this white probably
     --clr-code-bg: hsla(0, 0%, 0%, 0.08);
     --clr-code-txt: hsla(0, 0%, 0%, 0.95);
-
+    // TODO: Remove these and use a selector to target everything inside the
+    // code blocks. Even use !important if needed.
     --clr-code-block-txt: hsl(0, 69%, 48%);
     --clr-tkn-a: hsl(199, 17%, 42%);
     --clr-tkn-b: hsl(0, 0%, 14%);

@@ -1,0 +1,23 @@
+---
+import Image from '#components/Image';
+
+const { snippet } = Astro.props;
+---
+<article>
+  <h1>{snippet.title}</h1>
+  <Image
+    src={snippet.cover}
+    alt=''
+    height='180'
+    width='360'
+    fetchpriority='high'
+  />
+  <Fragment set:html={snippet.fullDescription}/>
+  <!-- This might need to be a footer? See the MDN example below -->
+  <p>
+    <!-- TODO: Use a <time> with an appropriate datetime format here, see Usage notes in https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article -->
+    Last updated <span>{snippet.date}</span> &middot; <span>TODO: On GitHub</span>
+    <!-- TODO: Update all illustration images, again, to 800px and new bg -->
+  </p>
+  </div>
+</article>

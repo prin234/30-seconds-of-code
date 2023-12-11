@@ -24,6 +24,7 @@ export const highlightCode = ({ grammars }) => {
       const languageStringLiteral = languages[languageName] || '';
 
       const attributes = {
+        // TODO: Evaluate if language should be a class or not
         class: `language-${languageName} notranslate`,
         translate: `no`,
       };
@@ -165,6 +166,8 @@ export const wrapTables = ({ className }) => {
 
         // Wrap the table in a div
         const innerNode = { ...node, children: [...node.children] };
+        // TODO: Might be worth turning this into a `section`?
+        // TODO: A `figure` would most likely make the most sense for this, as we can maybe add captions.
         node.tagName = `div`;
         node.properties = { className };
         node.children = [innerNode];

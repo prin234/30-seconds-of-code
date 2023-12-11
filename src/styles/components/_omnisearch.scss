@@ -1,0 +1,156 @@
+dialog {
+  --search-margin-block-start: 200px;
+  --search-margin-block-end: 200px;
+
+  background: var(--color-background-light);
+  border-radius: var(--layout-border-radius);
+  // TODO: Mobile needs love
+  margin: var(--search-margin-block-start) auto var(--search-margin-block-end);
+  width: 100%;
+  max-width: 600px;
+
+  // TODO: Give this a second pass, please.
+  @media (orientation: portrait) {
+    --search-margin-block-start: 100px;
+    --search-margin-block-end: 0px;
+  }
+
+  color: var(--color-text);
+
+  // Reset the default dialog styles.
+  padding: 0;
+
+  --search-input-height: 60px;
+
+  search {
+    display: grid;
+    grid-template-columns: var(--s-4) 20px auto 32px var(--s-4);
+    align-items: center;
+  }
+
+  svg.icon:first-of-type {
+    grid-column: 2;
+  }
+
+  [type='search'] {
+    background: transparent;
+    outline: 0;
+
+    font-size: var(--font-md);
+    margin: var(--s-3) var(--s-2);
+
+    &:focus {
+      ~ output {
+        border-color: var(--color-primary-light);
+      }
+    }
+  }
+
+  button {
+    // Apply a transition on hover.
+    transition: color var(--animation-duration-short) ease;
+
+    @media (hover: hover) {
+      &:is(:hover, :focus) {
+        color: var(--color-primary);
+      }
+    }
+  }
+
+  output {
+    grid-column: 1 / -1;
+    padding: var(--s-4) var(--s-2) var(--s-4) var(--s-4);
+    max-height: calc(
+      100vh - var(--search-margin-block-start) - var(--search-margin-block-end) - var(
+          --search-input-height
+        )
+    );
+    overflow-x: auto;
+    border-top: 1px solid var(--color-border);
+    transition: border-color var(--animation-duration-medium) ease;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--s-2);
+
+    // Style the scrollbar.
+    --scrollbar_size: 8px;
+    --scrollbar_border: 2px solid var(--color-background-light);
+    --scrollbar_color-knob: var(--color-scrollbar-knob-active);
+
+    &::-webkit-scrollbar-track {
+      margin: var(--s-2) 0;
+    }
+
+    h2 {
+      font-weight: var(--font-weight-medium);
+      font-size: var(--font-sm);
+      color: var(--color-text-light);
+    }
+
+    ul {
+      list-style: none;
+      padding-inline-start: 0;
+      display: flex;
+      flex-direction: column;
+      row-gap: var(--s-2);
+      &:not(:last-child) {
+        margin-block-end: var(--s-4);
+      }
+    }
+
+    a {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      // Remove underline from result links.
+      --link_color-underline: transparent;
+      line-height: var(--line-height-normal);
+
+      column-gap: var(--s-4);
+
+      padding: var(--spacing-2) 0;
+
+      // Apply a transition on hover.
+      transition: color var(--animation-duration-medium) ease;
+
+      @media (hover: hover) {
+        &:is(:hover, :focus) {
+          // Only apply hover styles on devices that support hover.
+          color: var(--color-primary-light);
+
+          > small {
+            color: var(--color-primary-light);
+          }
+        }
+      }
+
+      small {
+        font-size: var(--font-sm);
+        color: var(--color-text-light);
+      }
+    }
+
+    p {
+      padding-block: var(--s-2);
+      text-wrap: pretty;
+    }
+  }
+}
+
+// TODO: Thse feel kinda nice, I will add them, but we need to account for
+// prefers reduced motion, too. Also move this in the main declaration above.
+dialog {
+  animation: dialog-in var(--animation-duration-medium) ease-out;
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,54 @@
+.hero {
+  display: flex;
+  --column-gap: var(--s-10);
+  column-gap: var(--column-gap);
+  row-gap: var(--s-6);
+  align-items: center;
+
+  // TODO: These need to be margins!
+  // TODO: Random values, the bottom affects the non-listing static pages
+  padding: var(--s-6) var(--s-6) var(--s-8);
+
+  h1,
+  h2 {
+    padding-block-end: var(--s-4);
+  }
+
+  p {
+    text-wrap: balance;
+  }
+
+  img {
+    border-radius: var(--border-radius-medium);
+
+    // TODO: All of this is a weird experiment but I sort of like it. Let's see!
+    // If we end up keeping it, we might as well keep the 1.5s timing, it's funky.
+    transition: filter 1.5s ease;
+
+    &:not(:hover) {
+      transition-delay: 0s;
+    }
+
+    &:hover {
+      filter: blur(0.25px) saturate(200%);
+      transition-delay: 1.5s;
+    }
+  }
+
+  @media (max-width: 45rem) {
+    // If the viewport isn't wide enough, switch to a column layout.
+    flex-direction: column;
+
+    img {
+      // Place the image before the title.
+      order: -1;
+    }
+
+    h1,
+    h2,
+    p {
+      // Align any text in the middle.
+      text-align: center;
+    }
+  }
+}
