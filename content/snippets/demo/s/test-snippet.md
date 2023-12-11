@@ -9,7 +9,7 @@ excerpt: This is a test snippet, do not publish it!
 dateModified: 2100-12-31
 ---
 
-This is a test snippet. It is intended to provide a centralized place to test all sorts of markdown content that one could produce in a post. It is not intended to be published. Always make sure the `dateModified` is in the far, far future.
+This is a **test** snippet. It is intended to provide a centralized place to _test_ all sorts of markdown content that one could produce in a post. It is not intended to be published. Always make sure the `dateModified` is in the far, far future.
 
 ## Headings
 
@@ -93,6 +93,10 @@ Let's also ensure lines wrap on their, as needed. Might come in handy!
 ## Other elements
 
 There's a few more elements and some cases we should cover just to be safe.
+
+### Image illustrations
+
+![Diagram of Flexbox properties](./illustrations/flexbox-diagram.png)
 
 ### Blockquotes
 
